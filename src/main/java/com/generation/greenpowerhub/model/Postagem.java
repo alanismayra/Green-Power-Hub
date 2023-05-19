@@ -4,11 +4,14 @@ package com.generation.greenpowerhub.model;
 
 	import org.hibernate.annotations.UpdateTimestamp;
 
-	import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Entity;
 	import jakarta.persistence.GeneratedValue;
 	import jakarta.persistence.GenerationType;
 	import jakarta.persistence.Id;
-	import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 	import jakarta.validation.constraints.NotBlank;
 	import jakarta.validation.constraints.Size;
 
@@ -34,7 +37,20 @@ package com.generation.greenpowerhub.model;
 		@NotBlank(message = "Este atributo é de preenchimento obrigatório")
 		@Size(min = 10, max = 500,message="Este atributo tem que ter no mínimo 10 caracteres e no máximo 500 caracteres")
 		private String comentario;
+		
 
+		public Tema getTema() {
+			return tema;
+		}
+
+		public void setTema(Tema tema) {
+			this.tema = tema;
+		}
+
+		@ManyToOne
+		@JsonIgnoreProperties("postagem")
+		private Tema tema;
+		
 		public Long getId() {
 			return id;
 		}
